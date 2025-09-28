@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala Conjugal - Dashboard</title>
+    <link rel="stylesheet" href="src/styles/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-heart"></i>
+                    <h1>Escala Conjugal</h1>
+                </div>
+                <p class="subtitle">Sistema de Avaliação de Relacionamentos</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2>Bem-vindo ao Sistema de Avaliação Conjugal</h2>
+                <p class="description">
+                    Nossa ferramenta foi desenvolvida para ajudar casais a compreenderem melhor 
+                    suas dinâmicas relacionais e identificar áreas de crescimento mútuo.
+                </p>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Correção da Escala Conjugal</h3>
+                        <p>Avalie a qualidade do seu relacionamento através de 24 questões estruturadas</p>
+                        <button id="startEvaluation" class="btn-primary">
+                            <i class="fas fa-play"></i>
+                            Iniciar Avaliação
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card coming-soon">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Relatórios Avançados</h3>
+                        <p>Análises detalhadas e recomendações personalizadas</p>
+                        <button class="btn-secondary" disabled>
+                            <i class="fas fa-clock"></i>
+                            Em Breve
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <h4><i class="fas fa-shield-alt"></i> Privacidade Garantida</h4>
+                    <p>Suas respostas são processadas localmente e não são armazenadas em servidores externos.</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-users"></i> Para Casais</h4>
+                    <p>Ambos os parceiros participam da avaliação para uma análise completa e equilibrada.</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-file-pdf"></i> Relatório em PDF</h4>
+                    <p>Receba um relatório detalhado em PDF com os resultados da avaliação.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Escala Conjugal. Desenvolvido com <i class="fas fa-heart"></i> para relacionamentos mais saudáveis.</p>
+        </footer>
+    </div>
+
+    <script src="src/scripts/dashboard.js"></script>
+</body>
+</html>
