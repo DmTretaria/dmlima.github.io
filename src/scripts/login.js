@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Envie os dados do formulário para o servidor para autenticação
     loginForm.addEventListener('submit', async function (e) {
         e.preventDefault();
-        const user = document.getElementById('dmlima').value.trim();
-        const pass = document.getElementById('123456').value;
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value;
 
         // Simple input validation
         if (!user || !pass) {
