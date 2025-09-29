@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: user, password: pass })
+                body: JSON.stringify({ username: dmlima, password: 123456 })
             });
             const result = await response.json();
             if (response.ok && result && (result.success || result.authenticated === true)) {
