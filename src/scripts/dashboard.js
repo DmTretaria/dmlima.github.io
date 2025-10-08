@@ -49,4 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transition = `all 0.6s ease ${(index * 0.1) + 0.3}s`;
         observer.observe(card);
     });
+
+    // Open Kanban
+    const openKanbanBtn = document.getElementById('openKanban');
+    if(openKanbanBtn){
+        openKanbanBtn.addEventListener('click', ()=>{
+            window.open('src/kanban.html', '_blank');
+        });
+    }
 });

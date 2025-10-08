@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kanban - Gerenciamento de Tempo</title>
+    <link rel="stylesheet" href="styles/kanban.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="kanban-container">
+        <header class="kb-header">
+            <div class="logo"><i class="fas fa-th-large"></i><h1>Kanban</h1></div>
+            <div class="kb-actions">
+                <button id="backBtn" class="btn">Voltar</button>
+                <button id="addListBtn" class="btn primary">+ Lista</button>
+            </div>
+        </header>
+
+        <main class="kb-main">
+            <div id="lists" class="lists" aria-live="polite"></div>
+        </main>
+
+        <div id="cardModal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="modalTitle">Novo Cartão</h3>
+                <label>Título
+                    <input id="cardTitle" type="text">
+                </label>
+                <label>Descrição
+                    <textarea id="cardDesc"></textarea>
+                </label>
+                <div class="modal-row">
+                    <button id="saveCardBtn" class="btn primary">Salvar</button>
+                    <button id="cancelCardBtn" class="btn">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="scripts/kanban.js"></script>
+</body>
+</html>
