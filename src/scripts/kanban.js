@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalTitle = document.getElementById('modalTitle');
   const cardTitleInput = document.getElementById('cardTitle');
   const cardDescInput = document.getElementById('cardDesc');
+  const cardFileInput = document.getElementById('cardFileInput');
+  const attachmentsPreview = document.getElementById('attachmentsPreview');
   const saveCardBtn = document.getElementById('saveCardBtn');
   const cancelCardBtn = document.getElementById('cancelCardBtn');
 
   let state = loadState();
   let currentListId = null;
   let editCardId = null;
+  let pendingAttachments = [];
 
   function saveState(){ localStorage.setItem('kanbanState', JSON.stringify(state)); }
   function loadState(){
@@ -65,6 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="small edit-card">✎</button>
                          </span>
                        </div>`;
+        // attachments thumbnails
+        if(card.attachments && card.attachments.length){
+          const wrap = document.createElement('div'); wrap.className = 'attachments-preview';
+          card.attachments.slice(0,4).forEach(att=>{
+            const d = document.createElement('div'); d.className='attachment';
+            if(att.type && att.type.startsWith('image/')){ const img = document.createElement('img'); img.src = att.data; d.appendChild(img); }
+            else { d.textContent = '📎'; }
+            wrap.appendChild(d);
+          });
+          c.appendChild(wrap);
+        }
         cardsEl.appendChild(c);
       });
 
@@ -111,13 +125,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function openCardModal(listId){ currentListId = listId; editCardId = null; cardTitleInput.value=''; cardDescInput.value=''; modalTitle.textContent='Novo Cartão'; cardModal.classList.remove('hidden'); }
-  cancelCardBtn.addEventListener('click', ()=>{ cardModal.classList.add('hidden'); });
+  cancelCardBtn.addEventListener('click', ()=>{ cardModal.classList.add('hidden'); if(attachmentsPreview) attachmentsPreview.innerHTML=''; if(cardFileInput) cardFileInput.value=''; pendingAttachments = []; });
+  // Handle file input and previews
+  if(cardFileInput){
+    cardFileInput.addEventListener('change', async (e)=>{
+      const files = Array.from(e.target.files || []);
+      for(const f of files){
+        if(f.size > 2_500_000){ alert('Arquivo muito grande: ' + f.name); continue; }
+        try{
+          const data = await fileToDataURL(f);
+          pendingAttachments.push({name: f.name, type: f.type, data});
+        }catch(err){ console.error('Erro lendo arquivo', err); }
+      }
+      renderPendingAttachments();
+    });
+  }
+
+  function fileToDataURL(file){ return new Promise((res, rej)=>{ const reader = new FileReader(); reader.onload = ()=>res(reader.result); reader.onerror = rej; reader.readAsDataURL(file); }); }
+  function renderPendingAttachments(){ if(!attachmentsPreview) return; attachmentsPreview.innerHTML=''; pendingAttachments.forEach((a)=>{ const d = document.createElement('div'); d.className='attachment'; if(a.type && a.type.startsWith('image/')){ const img = document.createElement('img'); img.src = a.data; d.appendChild(img); } else { d.textContent = '📎'; } attachmentsPreview.appendChild(d); }); }
   saveCardBtn.addEventListener('click', ()=>{
     const title = cardTitleInput.value.trim();
     const desc = cardDescInput.value.trim();
     if(!title) return alert('Título é obrigatório');
-    if(editCardId){ const {list, card} = findCard(editCardId); card.title = title; card.desc = desc; }
-    else{ const list = state.find(l=>l.id===currentListId); list.cards.push({id:genId(), title, desc, timer:0, running:false, lastStart: null}); }
+    if(editCardId){ const {list, card} = findCard(editCardId); card.title = title; card.desc = desc; if(pendingAttachments.length) card.attachments = (card.attachments||[]).concat(pendingAttachments); }
+    else{ const list = state.find(l=>l.id===currentListId); list.cards.push({id:genId(), title, desc, timer:0, running:false, lastStart: null, attachments: pendingAttachments.slice()}); }
+    // reset pending attachments
+    pendingAttachments = [];
+    if(attachmentsPreview) attachmentsPreview.innerHTML=''; if(cardFileInput) cardFileInput.value='';
     saveState(); cardModal.classList.add('hidden'); render();
   });
 

@@ -31,10 +31,15 @@
                 <label>Descrição
                     <textarea id="cardDesc"></textarea>
                 </label>
+                <label class="file-label">Anexos (imagens/arquivos)
+                    <input id="cardFileInput" type="file" multiple accept="image/*,application/pdf,application/*">
+                </label>
+                <div id="attachmentsPreview" class="attachments-preview"></div>
                 <div class="modal-row">
                     <button id="saveCardBtn" class="btn primary">Salvar</button>
                     <button id="cancelCardBtn" class="btn">Cancelar</button>
                 </div>
+                <p class="note">Os arquivos são salvos localmente no navegador (localStorage). Evite arquivos muito grandes.</p>
             </div>
         </div>
 
